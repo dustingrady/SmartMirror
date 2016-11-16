@@ -3,16 +3,28 @@
 #Status: Working/ Tested
 
 import pyowm
+import time
+import threading
 
-API_KEY = 'f758480110064748fcea0d1f2063bbb3'
+try:
+    #python3
+    from tkinter import *
+except:
+    #python2
+    from Tkinter import *
+
+API_KEY = 'your_key_here'
 owm = pyowm.OWM(API_KEY)
 
-observation = owm.weather_at_place('San Francisco, CA, US')
-#observation = owm.weather_at_coords(36.6002, 121.8947)
+observation = owm.weather_at_place('Monterey, CA, US')
+#observation = owm.weather_at_place('Tehran, Iran')#Example of another place (am vs pm)
+#observation = owm.weather_at_coords(36.6002, 121.8947)#Example of coord system
 
 
 class WeatherClass():
     def __init__(self):
+        time1 = time.localtime(time.time())
+
         '''Get Today's forecast'''
         weather = observation.get_weather()
         self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
@@ -29,13 +41,27 @@ class WeatherClass():
         self.currentWeather = str(currentConditions)
         self.currentTemperature = str(self.currentTemperature)
 
+        '''Determine current weather state'''
+        if "clouds" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Cloudy.png")
+        if "clear" in self.currentWeather:
+            if(time1.tm_hour > 6) and (time1.tm_hour <18):#Between 6am and 6pm will be day
+                self.weatherImage = PhotoImage(file="ClearSkyDay.png")
+            else:
+                self.weatherImage = PhotoImage(file="ClearSkyNight.png")
+        if "sunny" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="ClearSkyDay.png")
+        if "rain" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Rain.png")
+        if "thunder" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Thunder.png")
+        if "snow" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Snow.png")
+        if "haze" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Foggy.png")
+        if "fog" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Foggy.png")
+        if "mist" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Foggy.png")
 
-
-#-----------------------_Testing_----------------------------
-        #print(self.currentWeather)
-        print('Todays Forecast: ' + self.todaysForecast)
-        print('Current Weather: ' + self.currentWeather)
-        print('Current Temperature: ' + self.currentTemperature + ' degrees fahrenheit')
-    #currentWeather = getWeather()
-#Weather.getWeather()
-#-----------------------_Testing_----------------------------
+#threading.Timer(5, __init__(self).start()
