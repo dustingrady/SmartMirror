@@ -28,14 +28,12 @@ class WeatherClass():
         #self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
 
         '''Get Current Weather Conditions'''
-        currentConditions = weather.get_detailed_status()
-        self.currentWeather = str(currentConditions)
+        self.currentWeather = str(weather.get_detailed_status())
 
         '''Get Current Temperature in Fahrenheit'''
         self.currentTemperature = weather.get_temperature(unit = 'fahrenheit')
         self.currentTemperature = str(self.currentTemperature).split("'temp':", 1)[1]#Get temperature, removing everything before it
-        self.currentTemperature = self.currentTemperature[:3]#Remove everything except for the 2 digits we need
-        self.currentTemperature = str(self.currentTemperature)
+        self.currentTemperature = str(self.currentTemperature[:3])#Remove everything except for the 2 digits we need
 
         #self.todaysForecast = str(self.todaysForecast)
 
@@ -67,14 +65,12 @@ class WeatherClass():
         weather2 = observation.get_weather()
 
         '''Get Current Weather Conditions'''
-        currentConditions2 = weather2.get_detailed_status()
-        self.currentWeather2 = str(currentConditions2)
+        self.currentWeather2 = str(weather2.get_detailed_status())
         print(self.currentWeather2)#Testing
 
         '''Get Current Temperature in Fahrenheit'''
         self.currentTemperature2 = weather2.get_temperature(unit = 'fahrenheit')
         self.currentTemperature2 = str(self.currentTemperature2).split("'temp':", 1)[1]#Get temperature, removing everything before it
-        self.currentTemperature2 = self.currentTemperature2[:3]#Remove everything except for the 2 digits we need
-        self.currentTemperature2 = str(self.currentTemperature2)
+        self.currentTemperature2 = str(self.currentTemperature2[:3])#Remove everything except for the 2 digits we need
         print(self.currentTemperature2)#Testing
 #threading.Timer(5, __init__(self).start()
