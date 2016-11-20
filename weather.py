@@ -14,17 +14,18 @@ except:
     from Tkinter import *
 
 API_KEY = 'Your_API_Key_Here'
-owm = pyowm.OWM(API_KEY)
 
-observation = owm.weather_at_place('Campbell, CA, US')
 #observation = owm.weather_at_place('Tehran, Iran')#Example of another place (am vs pm)
 #observation = owm.weather_at_coords(36.6002, 121.8947)#Example of coord system
 time1 = time.localtime(time.time())
 class WeatherClass():
     def __init__(self):
+        owm = pyowm.OWM(API_KEY)
+        #observation = owm.weather_at_place('Campbell, CA, US')
+        observation = owm.weather_at_place('Beijing, China')#Example of another place (am vs pm)
+        weather = observation.get_weather()
 
         '''Get Today's forecast'''
-        weather = observation.get_weather()
         #self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
 
         '''Get Current Weather Conditions'''
@@ -35,9 +36,12 @@ class WeatherClass():
         self.currentTemperature = str(self.currentTemperature).split("'temp':", 1)[1]#Get temperature, removing everything before it
         self.currentTemperature = str(self.currentTemperature[:3])#Remove everything except for the 2 digits we need
 
+        print(self.currentWeather)#Testing
+        print(self.currentTemperature)#Testing
+
         #self.todaysForecast = str(self.todaysForecast)
 
-        '''Determine current weather state'''
+        #Determine current weather state'''
         if "clouds" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Cloudy.png")
         if "clear" in self.currentWeather:
@@ -59,18 +63,3 @@ class WeatherClass():
             self.weatherImage = PhotoImage(file="Foggy.png")
         if "mist" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Foggy.png")
-
-    #Trying to get updated weather status
-    def update_Weather(self):
-        weather2 = observation.get_weather()
-
-        '''Get Current Weather Conditions'''
-        self.currentWeather2 = str(weather2.get_detailed_status())
-        print(self.currentWeather2)#Testing
-
-        '''Get Current Temperature in Fahrenheit'''
-        self.currentTemperature2 = weather2.get_temperature(unit = 'fahrenheit')
-        self.currentTemperature2 = str(self.currentTemperature2).split("'temp':", 1)[1]#Get temperature, removing everything before it
-        self.currentTemperature2 = str(self.currentTemperature2[:3])#Remove everything except for the 2 digits we need
-        print(self.currentTemperature2)#Testing
-#threading.Timer(5, __init__(self).start()
