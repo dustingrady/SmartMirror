@@ -13,33 +13,31 @@ except:
     #python2
     from Tkinter import *
 
-API_KEY = 'your_key_here'
+API_KEY = 'Your_API_Key_Here'
 owm = pyowm.OWM(API_KEY)
 
-observation = owm.weather_at_place('Monterey, CA, US')
+observation = owm.weather_at_place('Campbell, CA, US')
 #observation = owm.weather_at_place('Tehran, Iran')#Example of another place (am vs pm)
 #observation = owm.weather_at_coords(36.6002, 121.8947)#Example of coord system
-
-
+time1 = time.localtime(time.time())
 class WeatherClass():
     def __init__(self):
-        time1 = time.localtime(time.time())
 
         '''Get Today's forecast'''
         weather = observation.get_weather()
-        self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
+        #self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
 
         '''Get Current Weather Conditions'''
         currentConditions = weather.get_detailed_status()
+        self.currentWeather = str(currentConditions)
 
         '''Get Current Temperature in Fahrenheit'''
         self.currentTemperature = weather.get_temperature(unit = 'fahrenheit')
         self.currentTemperature = str(self.currentTemperature).split("'temp':", 1)[1]#Get temperature, removing everything before it
         self.currentTemperature = self.currentTemperature[:3]#Remove everything except for the 2 digits we need
-
-        self.todaysForecast = str(self.todaysForecast)
-        self.currentWeather = str(currentConditions)
         self.currentTemperature = str(self.currentTemperature)
+
+        #self.todaysForecast = str(self.todaysForecast)
 
         '''Determine current weather state'''
         if "clouds" in self.currentWeather:
@@ -64,4 +62,19 @@ class WeatherClass():
         if "mist" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Foggy.png")
 
+    #Trying to get updated weather status
+    def update_Weather(self):
+        weather2 = observation.get_weather()
+
+        '''Get Current Weather Conditions'''
+        currentConditions2 = weather2.get_detailed_status()
+        self.currentWeather2 = str(currentConditions2)
+        print(self.currentWeather2)#Testing
+
+        '''Get Current Temperature in Fahrenheit'''
+        self.currentTemperature2 = weather2.get_temperature(unit = 'fahrenheit')
+        self.currentTemperature2 = str(self.currentTemperature2).split("'temp':", 1)[1]#Get temperature, removing everything before it
+        self.currentTemperature2 = self.currentTemperature2[:3]#Remove everything except for the 2 digits we need
+        self.currentTemperature2 = str(self.currentTemperature2)
+        print(self.currentTemperature2)#Testing
 #threading.Timer(5, __init__(self).start()
