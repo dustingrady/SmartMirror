@@ -1,5 +1,5 @@
 #Author: Dustin Grady
-#Function: Access weather data from Open Weather Maps API_KEY
+#Function: Access weather data from Open Weather Maps
 #Status: Working/ Tested
 
 import pyowm
@@ -13,16 +13,14 @@ except:
     #python2
     from Tkinter import *
 
-API_KEY = 'Your_API_Key_Here'
-
-#observation = owm.weather_at_place('Tehran, Iran')#Example of another place (am vs pm)
-#observation = owm.weather_at_coords(36.6002, 121.8947)#Example of coord system
+API_KEY = 'f758480110064748fcea0d1f2063bbb3'
 time1 = time.localtime(time.time())
+
 class WeatherClass():
     def __init__(self):
         owm = pyowm.OWM(API_KEY)
-        #observation = owm.weather_at_place('Campbell, CA, US')
-        observation = owm.weather_at_place('Beijing, China')#Example of another place (am vs pm)
+        self.location = 'Dallas, TX, USA'
+        observation = owm.weather_at_place(self.location)
         weather = observation.get_weather()
 
         '''Get Today's forecast'''
@@ -41,7 +39,7 @@ class WeatherClass():
 
         #self.todaysForecast = str(self.todaysForecast)
 
-        #Determine current weather state'''
+        '''Determine Weather Icon'''
         if "clouds" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Cloudy.png")
         if "clear" in self.currentWeather:

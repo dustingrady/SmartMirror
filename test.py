@@ -88,23 +88,27 @@ textWidget.config(bg='black', fg='white')
 textWidget.config(font=labelfont)
 textWidget.config(borderwidth=0)#Get rid of 1px border
 textWidget.config(highlightthickness=0)#Get rid of 1px border
-textWidget.config(height=3, width=16)
+textWidget.config(height=3, width=20)
 textWidget.pack(expand=NO, fill=BOTH, side='right')
 
 #weatherClassObject = WeatherClass()#Create object of our WeatherClass()
 '''Draw weather status/icon'''
 def draw_Weather():
-    weatherClassObject = WeatherClass()#Create object of our WeatherClass()
+    global weatherClassObject
+    weatherClassObject = WeatherClass()
 
     weatherImage = weatherClassObject.weatherImage
-    weatherInfo = str(weatherClassObject.currentWeather) + '\n' + str(weatherClassObject.currentTemperature + 'F')#Get description of weather/ temperature
+    weatherInfo = weatherClassObject.location + '\n' + str(weatherClassObject.currentWeather) + '\n' + str(weatherClassObject.currentTemperature + 'F')#Get description of weather/ temperature
 
     imageWidget.config(image = weatherImage) #update image
     textWidget.config(text = weatherInfo) #update text
 
     print('Updating..')#Testing
-    WeatherClass()#Testing
-    threading.Timer(30, draw_Weather).start()#Updates every x seconds
+    print(weatherClassObject.currentWeather)#Testing
+    print(weatherClassObject.currentTemperature)#Testing
+    threading.Timer(10, draw_Weather).start()#Updates every x seconds
+
+    #return weatherClassObject
 
 tick()
 draw_Weather()#Initial call to get draw_Weather going
