@@ -42,6 +42,8 @@ class WeatherClass():
             self.weatherImage = PhotoImage(file="ClearSkyDay.png")
         if "Rain" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Rain.png")
+        if "Drizzle" in self.currentWeather:
+            self.weatherImage = PhotoImage(file="Rain.png")
         if "Thunder" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Thunder.png")
         if "Snow" in self.currentWeather:
