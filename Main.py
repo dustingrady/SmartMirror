@@ -80,15 +80,6 @@ class Application(Frame):
         self.top_left_label = Label(self.top_left, text="Top Left", fg='white', background='black')
         self.top_left_label.pack(side="left")
 
-        #self.top_right_label = Label(self.top_right, text="Top Right")
-        #self.top_right_label.pack(side="right")
-
-        #self.bottom_right_label = Label(self.bottom_right,text='Bottom Right', fg='white', background='black')
-        #self.bottom_right_label.pack(side='right')
-
-        #self.bottom_left_label = Label(self.bottom_left,text='Bottom Left')
-        #self.bottom_left_label.pack(side='left')
-
 #Display live time
 def tick():
     global time1
@@ -109,11 +100,7 @@ def draw_Weather():
     app.imageWidget.config(image = weatherImage) #update image
     app.textWidget.config(text = weatherInfo) #update text
 
-    #print('Updating..')#Testing
-    #print(weatherClassObject.currentWeather)#Testing
-    #print(weatherClassObject.currentTemperature)#Testing
     app.imageWidget.after(30000, draw_Weather)#update every x milliseconds
-    #return weatherClassObject
 
 root = Tk()
 root.title('Smart Mirror')
